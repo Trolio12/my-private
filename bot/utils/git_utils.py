@@ -157,7 +157,7 @@ def check_for_updates() -> Tuple[bool, int, str]:
     
     # Получаем лог новых коммитов
     success, log_output = run_git_command([
-        'log', '--oneline', f'HEAD..origin/{branch}', '-n', '10'
+        'log', '--format=%h %B', f'HEAD..origin/{branch}', '-n', '10'
     ])
     
     log_text = f"📦 Доступно обновлений: {commits_behind}\n\n"
@@ -201,7 +201,7 @@ def get_recent_commits(limit: int = 5) -> str:
         Форматированный список коммитов
     """
     success, output = run_git_command([
-        'log', '--oneline', '-n', str(limit)
+        'log', '--format=%h %B', '-n', str(limit)
     ])
     
     if success and output:
